@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="node-ses : An Amazon SES api for nodejs with proper error handling." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>node-ses</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/aheckmann/node-ses">Fork Me on GitHub</a>
+
+          <h1 id="project_title">node-ses</h1>
+          <h2 id="project_tagline">An Amazon SES api for nodejs with proper error handling.</h2>
+
+          <section id="downloads">
+            <a class="zip_download_link" href="https://github.com/aheckmann/node-ses/zipball/master">Download this project as a .zip file</a>
+            <a class="tar_download_link" href="https://github.com/aheckmann/node-ses/tarball/master">Download this project as a tar.gz file</a>
+          </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>node-ses</h1>
+
+<h1></h1>
+
+<p>An Amazon SES api for nodejs with proper error handling.</p>
+
+<p><em>This module implements the SendEmail action only. What more do you need? ;)</em></p>
+
+<div class="highlight">
+<pre><span class="kd">var</span> <span class="nx">ses</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'node-ses'</span><span class="p">)</span>
+  <span class="p">,</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">ses</span><span class="p">.</span><span class="nx">createClient</span><span class="p">({</span> <span class="nx">key</span><span class="o">:</span> <span class="s1">'key'</span><span class="p">,</span> <span class="nx">secret</span><span class="o">:</span> <span class="s1">'secret'</span> <span class="p">});</span>
+
+<span class="nx">client</span><span class="p">.</span><span class="nx">sendEmail</span><span class="p">({</span>
+   <span class="nx">to</span><span class="o">:</span> <span class="s1">'aaron.heckmann+github@gmail.com'</span>
+ <span class="p">,</span> <span class="nx">from</span><span class="o">:</span> <span class="s1">'somewhereOverTheR@inbow.com'</span>
+ <span class="p">,</span> <span class="nx">cc</span><span class="o">:</span> <span class="s1">'theWickedWitch@nerds.net'</span>
+ <span class="p">,</span> <span class="nx">bcc</span><span class="o">:</span> <span class="p">[</span><span class="s1">'canAlsoBe@nArray.com'</span><span class="p">,</span> <span class="s1">'forrealz@.org'</span><span class="p">]</span>
+ <span class="p">,</span> <span class="nx">subject</span><span class="o">:</span> <span class="s1">'greetings'</span>
+ <span class="p">,</span> <span class="nx">message</span><span class="o">:</span> <span class="s1">'your &lt;b&gt;message&lt;/b&gt; goes here'</span>
+ <span class="p">,</span> <span class="nx">altText</span><span class="o">:</span> <span class="s1">'plain text'</span>
+<span class="p">},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+ <span class="c1">// ...</span>
+<span class="p">});</span>
+</pre>
+</div>
+
+
+<h2>install</h2>
+
+<p><code>npm install node-ses</code></p>
+
+<p>The module has one primary export:</p>
+
+<h2>createClient()</h2>
+
+<p>You'll probably only be using this method. It takes an options object with the following properties:</p>
+
+<pre><code>`key` - (required) your AWS SES key
+`secret` - (required) your AWS SES secret
+`algorithm` - [optional] the AWS algorithm you are using. defaults to SHA1.
+`amazon` - [optional] the amazon end-point uri. defaults to amazon east.
+</code></pre>
+
+<div class="highlight">
+<pre><span class="kd">var</span> <span class="nx">ses</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'node-ses'</span><span class="p">)</span>
+  <span class="p">,</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">ses</span><span class="p">.</span><span class="nx">createClient</span><span class="p">({</span> <span class="nx">key</span><span class="o">:</span> <span class="s1">'key'</span><span class="p">,</span> <span class="nx">secret</span><span class="o">:</span> <span class="s1">'secret'</span> <span class="p">});</span>
+</pre>
+</div>
+
+
+<p>The client created has one method, <code>sendemail</code>. This method receives an options object with the following properties:</p>
+
+<pre><code>`from` - email address from which to send
+`subject` - string
+`message` - can be html
+`altText` - plain text version of message
+`to` - email address or array of addresses
+`cc` - email address or array of addresses
+`bcc` - email address or array of addresses
+`replyTo` - email address
+</code></pre>
+
+<p>Optional properties (overrides the values set in <code>createClient</code>):</p>
+
+<pre><code>`key` - AWS key
+`secret` - AWS secret
+`algorithm` - AWS algorithm to use
+`amazon` - AWS end point
+</code></pre>
+
+<p>The <code>sendmail</code> method transports your message to the AWS SES service. Check for errors returned since a 400 status is not uncommon.</p>
+
+<h2>tests</h2>
+
+<p><code>make test</code></p>
+
+<h2>Licence</h2>
+
+<p><a href="https://github.com/aheckmann/node-ses/blob/master/LICENSE">MIT</a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">node-ses maintained by <a href="https://github.com/aheckmann">aheckmann</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-30709383-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
